@@ -37,14 +37,14 @@ knowledge = DocumentKnowledgeBase(
 
 
 # Initialize instructions from file
-instructions = read_file("instructions.txt")
+instructions = [read_file("instructions.txt"), read_file("player_roles.txt")]
 
 agent = Agent(
     name="Agno Assist",
     model=Gemini(id="gemini-2.0-flash-exp", rate_limit=10),
     instructions=instructions,
     tools=[ReasoningTools(add_instructions=True), WebsiteTools(), GoogleSearchTools()],
-    knowledge=knowledge,
+#    knowledge=knowledge,
 #    storage=storage,
     add_datetime_to_instructions=True,
     # Add the chat history to the messages
@@ -57,7 +57,7 @@ agent = Agent(
 if __name__ == "__main__":
     # Load the knowledge base, comment out after first run
     # Set recreate to True to recreate the knowledge base if needed
-    agent.knowledge.load(recreate=False)
+#    agent.knowledge.load(recreate=False)
     agent.print_response("Dallas Cowboys +6.5 Philadelphia Eagles", stream=True,
                          show_full_reasoning=True,
                          stream_intermediate_steps=True)
